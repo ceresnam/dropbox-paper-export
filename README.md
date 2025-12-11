@@ -24,16 +24,6 @@ Tool to export Dropbox Paper documents to Markdown files with embedded images do
 - Python 3.12+
 - Dropbox API access token with appropriate permissions
 
-## Installation
-
-```bash
-# Install uv (if not already installed)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Install dependencies
-uv sync
-```
-
 ## Usage
 
 1. Create a Dropbox App at https://www.dropbox.com/developers/apps
@@ -42,8 +32,47 @@ uv sync
    - `files.metadata.read`
    - `files.content.read`
    - `sharing.read`
-3. Run the exporter:
+3. Install:
 
 ```bash
-uv run main.py --access-token ACCESS_TOKEN
+pip install dropbox-paper-export
+```
+
+4. Run
+
+```bash
+dropbox-paper-export --access-token ACCESS_TOKEN
+```
+
+Sample output:
+
+```plaintext
+Dropbox Paper to Markdown + Images Exporter ---
+   * Detected Team Account. Namespace ID: 1862260163
+   * Switching API context to Team Root...
+1. Scanning Dropbox for .paper files... (This takes a moment)
+2. Found 138 Paper documents. Starting export...
+
+Exporting:  28%|██        | 39/138 [01:43<02:35,  1.57s/doc]
+   -> Downloading 15 images for 'Meeting summary'...
+```
+
+## Development
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install dependencies
+uv sync
+
+# Running locally
+uv run main.py --access-token YOUR_TOKEN
+
+# Linting
+uv run ruff check .
+uv run ruff format .
+
+# Building release
+uv build
 ```
